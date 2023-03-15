@@ -1,0 +1,62 @@
+<header class="container unselectable">
+    <a class="badge badge-light" (click)="showAllCategories()">Alle Kategorien</a>
+    <a class="badge badge-light" (click)="showAddCategory()">Kategorie erstellen</a>
+</header>
+
+<br>
+
+<section class="container sections unselectable" id="allCategories" style="display: none;">
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#Identifikationsnummer</th>
+            <th scope="col">Name</th>
+            <th scope="col">Tags</th>
+            <th scope="col">Aktionen</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let category of categories">
+              <td>{{category.id}}</td>
+              <td>{{category.name}}</td>
+              <td>{{category.tags}}</td>
+              <td>
+                  <a class="badge" style="color: #28a745;" (click)="showEditCategory(category.id)">Kategorie bearbeiten</a>
+                  <a class="badge" style="color: #dc3545;" (click)="deleteCategory(category.id)">Kategorie löschen</a>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="container sections unselectable" id="addCategory" style="display: none;">
+    <form>
+        <div class="form-group">
+          <label for="add_name" class="col-form-label text-light">Name</label>
+          <input type="text" class="form-control clearOnSubmit" id="add_name" placeholder="Name">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="add_tags" class="col-form-label text-light">Tags</label>
+          <input type="text" class="form-control clearOnSubmit" id="add_tags" placeholder="Tags">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" (click)="addCategory()">Submit</button>
+      </form>
+</section>
+
+<section class="container sections unselectable" id="editCategory" style="display: none;">
+  <form>
+      <div class="form-group">
+        <label for="edit_name" class="col-form-label text-light">Name</label>
+        <input type="text" class="form-control clearOnSubmit" id="edit_name" placeholder="{{currentCategory.name}}">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="edit_tags" class="col-form-label text-light">Tags</label>
+        <input type="text" class="form-control clearOnSubmit" id="edit_tags" placeholder="{{currentCategory.tags}}">
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary" (click)="editCategory()">Submit</button>
+    </form>
+</section>

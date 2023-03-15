@@ -1,0 +1,194 @@
+<header class="container unselectable">
+    <a class="badge badge-light" (click)="openAllPosts()">Alle Posts</a>
+    <a class="badge badge-light" (click)="openUserPosts()">Meine Posts</a>
+    <a class="badge badge-light" (click)="openCreatePost()">Post erstellen</a>
+</header>
+
+<br>
+
+<section id="allPosts" class="container sections unselectable" style="display: none;">
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Ersteller</th>
+            <th scope="col">Titel</th>
+            <th scope="col">Nachricht</th>
+            <th scope="col">Kategorie</th>
+            <th scope="col">Aktionen</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let post of posts">
+              <td>{{post.sender.username}}</td>
+              <td>{{post.title}}</td>
+              <td>{{post.message}}</td>
+              <td>{{post.category.name}}</td>
+              <td>
+                <a class="badge" (click)="getCommentsOnPost(post.id)">Kommentare ansehen</a>
+                <a class="badge" (click)="showAddComment(post.id)">Kommentar schreiben</a>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="userPosts" class="container sections unselectable" style="display: none;">
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Ersteller</th>
+            <th scope="col">Titel</th>
+            <th scope="col">Nachricht</th>
+            <th scope="col">Kategorie</th>
+            <th scope="col">Aktionen</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let post of userPosts">
+              <td>{{post.sender.username}}</td>
+              <td>{{post.title}}</td>
+              <td>{{post.message}}</td>
+              <td>{{post.category.name}}</td>
+              <td>
+                  <a class="badge" style="color: #28a745;" (click)="showEditPost(post)">Bearbeiten</a>
+                  <a class="badge" style="color: #dc3545;" (click)="deletePost(post.id)">Löschen</a>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="createPost" class="container sections unselectable" style="display: none;">
+    <form>
+        <div class="form-group row">
+          <label for="create_title" class="col-sm-2 col-form-label text-light">Titel</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control clearOnSubmit" id="create_title" placeholder="Titel">
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <label for="create_message" class="col-sm-2 col-form-label text-light">Nachricht</label>
+          <div class="col-sm-10">
+            <textarea class="form-control clearOnSubmit" id="create_message" placeholder="Nachricht" style="height: 200px;"></textarea>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="create_category" class="col-sm-2 col-form-label text-light">Kategorie</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="create_category">
+                    <option *ngFor="let category of categories">{{category.name}}</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary clearOnSubmit" (click)="createPost()">Post erstellen</button>
+          </div>
+        </div>
+      </form>
+</section>
+
+<section id="editPost" class="container sections unselectable" style="display: none;">
+    <form>
+        <div class="form-group row">
+          <label for="edit_title" class="col-sm-2 col-form-label text-light">Titel</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control clearOnSubmit" id="edit_title" placeholder="{{currentPost.title}}">
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <label for="edit_message" class="col-sm-2 col-form-label text-light">Nachricht</label>
+          <div class="col-sm-10">
+            <textarea class="form-control clearOnSubmit" id="edit_message" placeholder="{{currentPost.message}}" style="height: 200px;"></textarea>
+          </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="edit_category" class="col-sm-2 col-form-label text-light">Kategorie</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="edit_category">
+                    <option *ngFor="let category of categories">{{category.name}}</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary" (click)="editPost()">Post bearbeiten</button>
+          </div>
+        </div>
+      </form>
+</section>
+
+<section id="comments" class="container sections unselectable" style="display: none;">
+<div class="accordion" id="activePost">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <span>{{currentPost.title}}</span>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          {{currentPost.message}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Ersteller</th>
+        <th scope="col">Nachricht</th>
+        <th scope="col">Aktion</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let comment of currentPostComments">
+          <td>{{comment.senderId}}</td>
+          <td>{{comment.text}}</td>
+          <td>
+            <a *ngIf="comment.senderId == userApi.user.username" class="badge" style="color: #dc3545;" (click)="deleteComment(comment.id)">Kommentar löschen</a>
+          </td>
+        </tr>
+    </tbody>
+</table>
+</section>
+
+<section id="addComment" class="container sections unselectable" style="display: none;">
+  <div class="accordion" id="activePost">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <span>{{currentPost.title}}</span>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          {{currentPost.message}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <form>
+    <div class="form-group">
+      <label for="comment_text" class="text-light">Kommentar</label>
+      <textarea  class="form-control clearOnSubmit" id="comment_text" aria-describedby="messageHelp" placeholder="Kommentar" style="height: 20vh;"></textarea>
+      <small id="messageHelp" class="form-text text-muted">Kommentare sind öffentlich für alle Benutzer sichtbar</small>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" (click)="addComment()">Absenden</button>
+  </form>
+</section>

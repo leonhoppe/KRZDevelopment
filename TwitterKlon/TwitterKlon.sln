@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitterKlon", "TwitterKlon.csproj", "{FACBCC72-AB23-427D-AD6D-093D8F0BEF0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterKlon.Tests", "..\TwitterKlon.Tests\TwitterKlon.Tests.csproj", "{947AD189-4D83-4FE2-A4E9-1F1E4185E50B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FACBCC72-AB23-427D-AD6D-093D8F0BEF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FACBCC72-AB23-427D-AD6D-093D8F0BEF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FACBCC72-AB23-427D-AD6D-093D8F0BEF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FACBCC72-AB23-427D-AD6D-093D8F0BEF0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{947AD189-4D83-4FE2-A4E9-1F1E4185E50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947AD189-4D83-4FE2-A4E9-1F1E4185E50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947AD189-4D83-4FE2-A4E9-1F1E4185E50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947AD189-4D83-4FE2-A4E9-1F1E4185E50B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0435EA02-B959-4CD8-B041-1CE63A36A6EC}
+	EndGlobalSection
+EndGlobal
